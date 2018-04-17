@@ -1,0 +1,10 @@
+.registerforms {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginfield {
+    margin: 5px;
+    padding: 2px;
+    width: 20%;
+}
