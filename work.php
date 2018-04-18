@@ -35,7 +35,7 @@ if(!isset($_SESSION["loggedinn"])){
 			echo '<h3 class="loginput">Din Profil</h3>';
 			echo '<p class="loginput">';echo $navn; echo '</p>';
             echo '<p class="loginput">';echo $email; echo '</p>';
-            echo '<form action=""><input type="submit" value=""></form>'//action="[fil som skal åpnes]" 
+            echo '<form action="hire.php"><input type="submit" value="Legg Ut Oppgaver"></form>'//action="[fil som skal åpnes]" 
 			echo '<img id="avatarbilde" src="Bilder/empty_avatar.png" alt=avatar">';
 			echo "</div>";
 			
