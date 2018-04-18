@@ -92,10 +92,10 @@ if(!isset($_SESSION["loggedinn"])){
     ?>
 <nav>
 	<ul class="navbar">
-		<li class="navoptions"><a class="navlink" href="mainpage.html">Hjem</a></li>
-		<li class="navoptions"><a class="navlink" href="work.html">Arbiedsmarked</a></li>
-		<li class="navoptions"><a class="navlink" href="about.html">Om oss</a></li>
-		<li class="navoptions"><a class="navlink" href="login.html">Logg inn</a></li>
+		<li class="navoptions"><a class="navlink" href="mainpage.php">Hjem</a></li>
+		<li class="navoptions"><a class="navlink" href="work.php">Arbiedsmarked</a></li>
+		<li class="navoptions"><a class="navlink" href="about.php">Om oss</a></li>
+		<li class="navoptions"><a class="navlink" href="Registration.php">Registrer deg</a></li>
 	</ul>
 </nav>
 
