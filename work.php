@@ -91,15 +91,17 @@ if(!isset($_SESSION["loggedinn"])){
 <div class="Content">
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="GET">       
 <div class="search"><h1 align="center">Arbeidsmarkedet</h1>
-    <input class="searchbar" type="text" name="search" required>
-    <input class="searchbar" type="submit" value="Søk" required>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
+    <input class="searchbar" type="text" name="search" >
+    <input class="searchbar" type="submit" value="Søk" >
+</form>
 </div>
 </form> 
 <div class="workdescription">
 <?php 
                 if(isset($_GET["search"])){
                     $name = $_GET["search"];
-                    if($name == ""){
+                    if($name = ""){
                         $sql = "SELECT * FROM  organizations JOIN users ON organizations.Owner = users.FirstName + users.LastName";
                     }else{
                         $sql = "SELECT * FROM organizations JOIN users ON organizations.Owner = users.FirstName + users.LastName WHERE Name = '$name' OR Owner = '$name'";
