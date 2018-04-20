@@ -22,9 +22,6 @@ if(!isset($_SESSION["loggedinn"])){
 <header>
 	<div class="topcontainer">
 		<image class="norgesbakgrunn" src="Bilder/Norgesbakgrunn.jpg" alt="Patriotisk bilde">
-        <header>
-	<div class="topcontainer">
-		<image class="norgesbakgrunn" src="Bilder/Norgesbakgrunn.jpg" alt="Patriotisk bilde">
 		<?php
 		if($_SESSION["loggedinn"]){
 			$tempVar = $_SESSION["userID"];
