@@ -41,6 +41,7 @@ $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
 			echo "</div>";
 			if(isset($_POST["logout"])){
 				session_destroy();
+				header("Cache-Control: no-cache, must-revalidate");
 			}
         }else{
 			echo '<div class="profiler">';
@@ -106,7 +107,7 @@ $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
         <input class="loginfield" type="submit" value="Legg til!">
     </form>
     <?php
-        //if($_SESSION["loggedinn"]){
+        if($_SESSION["loggedinn"] && isset($_POST["_name"])){
             $name = $_POST["_name"];
             $email = $_POST["_email"];
             $phone = $_POST["_phone"];
@@ -124,7 +125,7 @@ $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
             }*/
            
            
-        //}
+        }
     ?>
 </div>
 </body>

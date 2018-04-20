@@ -41,6 +41,7 @@ if(!isset($_SESSION["loggedinn"])){
 			echo "</div>";
 			if(isset($_POST["logout"])){
 				session_destroy();
+                header("Cache-Control: no-cache, must-revalidate");
 			}
         }else{
 			echo '<div class="profiler">';

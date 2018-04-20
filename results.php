@@ -53,7 +53,8 @@ while ($j = $results->fetch_assoc()) {
 			echo '<img id="avatarbilde" src="Bilder/empty_avatar.png" alt=avatar">';
 			echo "</div>";
 			if(isset($_POST["logout"])){
-				session_destroy();
+                session_destroy();
+                header("Cache-Control: no-cache, must-revalidate");
 			}
         }else{
 			echo '<div class="profiler">';
