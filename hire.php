@@ -107,19 +107,15 @@ $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
             $date = date("Y-m-d");
             $dateNeeded = $_POST["_date"];
             $dateNeeded = strrev($dateNeeded);
-            $owner = 4;//$_SESSION["userID"];
+            $owner = $_SESSION["userID"];
             $sql = "INSERT INTO organizations (`Name`, `DateCreated`, `Email`, `Phone`, `Description`, `Owner`, `Needs`) VALUES ('$name','$date', '$email', '$phone', '$desc', '$owner', '$needs')";
-           
+            $conn->query($sql);
             /* Oh Great Old One. Why doesn't my logic work?
-            if($conn->query($sql) === true){
+            if($conn->query($sql) == true){
                 echo "$date";
             }*/
            
-            if($conn->query($sql) === true){
-                echo "$date";
-            }else{
-                echo "failure ". $conn->error;
-            }
+           
         //}
     ?>
 </div>
