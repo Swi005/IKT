@@ -8,6 +8,9 @@ if(!isset($_SESSION["loggedinn"])){
     $DBusername = "root";
     $DBname = "test";
     $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
+    if(!$_SESSION["userID"]){
+        $tempvar = $_SESSION["userID"];
+    }
 ?>
 <!DOCTYPE html>
 
@@ -22,10 +25,13 @@ if(!isset($_SESSION["loggedinn"])){
 <header>
 	<div class="topcontainer">
 		<image class="norgesbakgrunn" src="Bilder/Norgesbakgrunn.jpg" alt="Patriotisk bilde">
+        <header>
+	<div class="topcontainer">
+		<image class="norgesbakgrunn" src="Bilder/Norgesbakgrunn.jpg" alt="Patriotisk bilde">
 <?php
 		if($_SESSION["loggedinn"]){
 			$tempVar = $_SESSION["userID"];
-			$sql = "SELECT FirstName, LastName, Email FROM  Users WHERE UserID = '$tempVar'";
+			$sql = "SELECT * FROM users WHERE UserID = '$tempVar'";
 			$results = $conn->query($sql);
 			while($a = $results->fetch_assoc()){
 				$navn = $a["FirstName"]." ".$a["LastName"];
@@ -34,51 +40,44 @@ if(!isset($_SESSION["loggedinn"])){
             echo '<div class="profiler">';
 			echo '<h3 class="loginput">Din Profil</h3>';
 			echo '<p class="loginput">';echo $navn; echo '</p>';
-            echo '<p class="loginput">';echo $email; echo '</p>';
-            echo '<form action="hire.php"><input type="submit" value="Legg Ut Oppgaver"></form>';
+			echo '<p class="loginput">';echo $email; echo '</p>';
+			echo '<form action="hire.php"><input type="submit" value="Legg Ut Oppgaver"></form>';
 			echo '<img id="avatarbilde" src="Bilder/empty_avatar.png" alt=avatar">';
 			echo "</div>";
 			
         }else{
 			echo '<div class="profiler">';
 			echo '<form action="';
-			?>
-			<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>
-			<?php
-			echo '" method="POST">';
+			echo htmlspecialchars($_SERVER["PHP_SELF"]);
+			echo '" method="post">';
 			echo 'Skriv inn dine brukerdetaljer';
 			echo '<input class="loginput" type="text" name="_email" placeholder="Brukernavn" required>';
 			echo '<input class="loginput" type="password" name="_password" placeholder="Passord" required>';
-			echo '<input class="loginput" type="submit" name="" id="">';
+			echo '<input class="loginput" type="submit">';
 			echo '</form>';
 			echo '</div>';
+			if(isset($_POST["_email"])){
+				$username = $_POST["_email"];
+				$password = $_POST["_password"];
+				$sql = "SELECT * FROM users";
+				$results = $conn->query($sql);
+				while($a = $results->fetch_assoc()){
+					$foo2 = $a["UserID"];
+					$foo0 = $a["Email"];
+					$foo1 = $a["Password"];
+					if($username == $foo0 && $password == $foo1){
+						$_SESSION["loggedinn"] = true;
+                        $_SESSION["userID"] = $foo2;
+                        
+        header("Cache-Control: no-cache, must-revalidate");
+					break;
+					}
+				}
+			}
         }
 	?>
 	</div>
 </header>
-<?php
-        if(isset($_POST["email"])){
-            $username = $_POST["_email"];
-            $password = $_POST["_password"];
-            $password = hash("sha256", $password);
-            $sql = "SELECT * FROM `users`";
-            $results = $conn->query($sql);
-            if(isset($username)){
-                while($a = $results->fetch_assoc()){
-                    if($username == $a["Email"] && $password == $a["Password"]){
-                        $_SESSION["loggedinn"] = true;
-                        $_SESSION["userID"] = $a["userID"];
-                        echo "success";
-                        break;
-                    }else{
-                        //feil brukernavn
-                        echo '<p>There was a problem</p>';
-                        break;
-                    }
-                }
-            }
-        }
-    ?>
 <nav>
 	<ul class="navbar">
 		<li class="navoptions"><a class="navlink" href="mainpage.php">Hjem</a></li>
@@ -95,8 +94,8 @@ if(!isset($_SESSION["loggedinn"])){
         <div class="registerforms">
             <input class="loginfield" type="email" name="_email" placeholder="Skriv din E-mail" required>
             <input class="loginfield" type="password" name="_password" placeholder="Skriv ditt passord" required>
-            <input class="loginfield" type="text" name="_firstname" placeholder="Skriv ditt fornavn" required>
-            <input class="loginfield" type="text" name="_lastname" placeholder="Skriv ditt etternavn">
+            <input class="loginfield" type="text" name="_firstName" placeholder="Skriv ditt fornavn" required>
+            <input class="loginfield" type="text" name="_lastName" placeholder="Skriv ditt etternavn">
             <input class="loginfield" type="text" name="_zip" placeholder="Skriv ditt postnummer" required>
             <input class="loginfield" type="text" name="_city" placeholder="Skriv ditt poststed" required>
             <input class="loginfield" type="text" name="_address" placeholder="Skriv din adresse" required>
@@ -117,15 +116,19 @@ if(!isset($_SESSION["loggedinn"])){
         $zip = $_POST["_zip"];
         $city = $_POST["_city"];
         $address = $_POST["_address"];
-        $password = hash("sha256", $password);
 
         $sql = "SELECT * FROM users WHERE Email = '$email'";
             if($conn->query($sql) !== true){
-                $sql = "INSERT INTO `users` (`Email`, `Password`, `FirstName`, `LastName`, `Zip_Code`, `Address`, `City`) VALUES ('$email', '$password','$firstName', '$lastName', '$zip', '$address', '$city')";
+                $sql = "INSERT INTO `users` (Email, Password, FirstName, LastName, Zip_Code, Address, City) VALUES ('$email', '$password','$firstName', '$lastName', '$zip', '$address', '$city')";
                 if($conn->query($sql)){
                 echo "Success";
                 $_SESSION["loggedinn"] = true;
-                $_SESSION["userID"] = $a["userID"];
+                $sql = "SELECT UserID FROM Users WHERE Email = $email";
+                $results= $sql->query($sql);
+                    while ($i = $results->fetch_assoc()) {
+                        $_SESSION["userID"] = $a["userID"];
+                        break;
+                    }
                 }
                 else{
                     //there was a problem
