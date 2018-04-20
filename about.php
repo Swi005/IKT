@@ -3,7 +3,6 @@ session_start();
 if(!isset($_SESSION["loggedinn"])){
     $_SESSION["loggedinn"] = false;
 }
-session_destroy();
 $DBhostname = "localhost";
 $DBpassword = "";
 $DBusername = "root";
