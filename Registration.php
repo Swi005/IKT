@@ -122,7 +122,6 @@ if(!isset($_SESSION["loggedinn"])){
             if($conn->query($sql) != true){
                 $sql = "INSERT INTO `users` (Email, Password, FirstName, LastName, Zip_Code, Address, City) VALUES ('$email', '$password','$firstName', '$lastName', '$zip', '$address', '$city')";
                 if($conn->query($sql)){
-                echo "Success";
                 $_SESSION["loggedinn"] = true;
                 $sql = "SELECT UserID FROM Users WHERE Email = $email";
                 $results= $sql->query($sql);
@@ -137,7 +136,7 @@ if(!isset($_SESSION["loggedinn"])){
                 }
             }else{
                 //User allready exists
-                echo "There was an error ". $conn->error;
+                echo "That email is allready in use";
             }
         }
     ?>

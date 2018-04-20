@@ -8,6 +8,19 @@ $DBpassword = "";
 $DBusername = "root";
 $DBname = "test";
 $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
+$bar = $_GET["foo"];
+$sql = "SELECT * FROM organization JOIN users ON organizations.Owner = users.FirstName + users.LastName WHERE OrgID = '$bar'";
+$results = $conn->query($sql);
+while ($j = $results->fetch_assoc()) {
+    $name = $j["Name"];
+    $date = $j["DateCreated"];
+    $phone = $j["Phone"];
+    $description = $j["Description"];
+    $Owner = $j["FirstName"]." ".$j["LastName"];
+    $Needs = $j["Needs"];
+    $email = $j["Email"];
+    $date = strrev($date);
+}
 ?>
 <!DOCTYPE html>
 
@@ -84,18 +97,17 @@ $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
 		<h1 align="Center">Arbeidsforklaring</h1>
     
 <fieldset>
-    <legend>Vedhogging</legend>
+    <legend><?php echo $name ?></legend>
     <br>
-    <p class="workdesc">Arbeidsoppgaven går ut på: Gammel dame på 80, trenger hjelp til å hogge ved. <br>
-    Har øks i vedskjulet, men den er ganske gammel.</p>
+    <p class="workdesc"><?php echo $description ?></p>
     
 
     <div class="profileid">
-        <p>Bente Halvorsen</p>
-        <p>Utlyst 2018.04.17</p>¨
+        <p><?php echo $Owner ?></p>
+        <p>Utlyst <?php echo $date ?>>/p>¨
 
-        <p>Tlf:94457345</p>
-        <p>E-mail: bentehalvorsen@gmail.com</p>
+        <p>Tlf:<?php echo $phone ?></p>
+        <p>E-mail: <?php echo $email?></p>
     </div>
 </fieldset>
 		
