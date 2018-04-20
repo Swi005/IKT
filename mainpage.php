@@ -44,17 +44,18 @@ if(!isset($_SESSION["loggedinn"])){
 				$navn = $a["FirstName"]." ".$a["LastName"];
 				$email = $a["Email"];
 			}
-            echo '<div class="profiler">';
+			echo '<div class="profiler">';
+			echo '<div class="profilertexts">';
 			echo '<h3 class="loginput">Din Profil</h3>';
 			echo '<p class="loginput">';echo $navn; echo '</p>';
 			echo '<p class="loginput">';echo $email; echo '</p>';
-			echo '<form action="hire.php"><input type="submit" value="Legg Ut Oppgaver"></form>';
-			echo '<form action="'; echo htmlspecialchars($_SERVER["PHP_SELF"]); echo '" method="post"><input type="submit" value="Log Ut" name="logout"></form>';
-			echo '<img id="avatarbilde" src="Bilder/empty_avatar.png" alt=avatar">';
+			echo '<form action="hire.php"><input class="loginput" type="submit" value="Legg Ut Oppgaver"></form>';
+			echo '<form action="'; echo htmlspecialchars($_SERVER["PHP_SELF"]); echo '" method="post"><input class="loginput" type="submit" value="Log Ut" name="logout"></form>';
+			echo '</div>';
+		// 	echo '<img id="avatarbilde" src="Bilder/empty_avatar.png" alt=avatar">';
 			echo "</div>";
 			if(isset($_POST["logout"])){
 				session_destroy();
-				header("Cache-Control: no-cache, must-revalidate");
 			}
         }else{
 			echo '<div class="profiler">';
@@ -65,7 +66,7 @@ if(!isset($_SESSION["loggedinn"])){
 			echo '<input class="loginput" type="text" name="_email" placeholder="Brukernavn" required>';
 			echo '<input class="loginput" type="password" name="_password" placeholder="Passord" required>';
 			echo '<input class="loginput" type="submit">';
-			echo '</form>';
+			echo '</form>';	
 			echo '</div>';
 			if(isset($_POST["_email"])){
 				$username = $_POST["_email"];
