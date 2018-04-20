@@ -8,9 +8,6 @@ if(!isset($_SESSION["loggedinn"])){
     $DBusername = "root";
     $DBname = "test";
     $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
-    if(!$_SESSION["userID"]){
-        $tempvar = $_SESSION["userID"];
-    }
 ?>
 <!DOCTYPE html>
 
@@ -68,8 +65,7 @@ if(!isset($_SESSION["loggedinn"])){
 					if($username == $foo0 && $password == $foo1){
 						$_SESSION["loggedinn"] = true;
                         $_SESSION["userID"] = $foo2;
-                        
-        header("Cache-Control: no-cache, must-revalidate");
+                        header("Cache-Control: no-cache, must-revalidate");
 					break;
 					}
 				}

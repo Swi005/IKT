@@ -3,9 +3,6 @@ session_start();
 if(!isset($_SESSION["loggedinn"])){
     $_SESSION["loggedinn"] = false;
 }
-if(!$_SESSION["userID"]){
-	$tempvar = $_SESSION["userID"];
-}
 $DBhostname = "localhost";
 $DBpassword = "";
 $DBusername = "root";
