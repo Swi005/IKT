@@ -123,8 +123,5 @@ $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
         //}
     ?>
 </div>
-
-oppgavenavn utgivelsesdato 
-
 </body>
 </html>

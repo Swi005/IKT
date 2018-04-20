@@ -114,7 +114,7 @@ if(!isset($_SESSION["loggedinn"])){
         $address = $_POST["_address"];
 
         $sql = "SELECT * FROM users WHERE Email = '$email'";
-            if($conn->query($sql) !== true){
+            if($conn->query($sql) != true){
                 $sql = "INSERT INTO `users` (Email, Password, FirstName, LastName, Zip_Code, Address, City) VALUES ('$email', '$password','$firstName', '$lastName', '$zip', '$address', '$city')";
                 if($conn->query($sql)){
                 echo "Success";

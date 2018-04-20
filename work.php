@@ -97,7 +97,7 @@ if(!isset($_SESSION["loggedinn"])){
 <?php 
                 if(isset($_GET["search"])){
                     $name = $_GET["search"];
-                    if($name = ""){
+                    if($name = null){
                         $sql = "SELECT * FROM  organizations JOIN users ON organizations.Owner = users.FirstName + users.LastName";
                     }else{
                         $sql = "SELECT * FROM organizations JOIN users ON organizations.Owner = users.FirstName + users.LastName WHERE Name = '$name' OR Owner = '$name'";
