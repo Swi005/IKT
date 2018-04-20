@@ -22,10 +22,7 @@ if(!isset($_SESSION["loggedinn"])){
 <header>
 	<div class="topcontainer">
 		<image class="norgesbakgrunn" src="Bilder/Norgesbakgrunn.jpg" alt="Patriotisk bilde">
-        <header>
-	<div class="topcontainer">
-		<image class="norgesbakgrunn" src="Bilder/Norgesbakgrunn.jpg" alt="Patriotisk bilde">
-        <?php
+		<?php
 		if($_SESSION["loggedinn"]){
 			$tempVar = $_SESSION["userID"];
 			$sql = "SELECT * FROM users WHERE UserID = '$tempVar'";
@@ -39,9 +36,12 @@ if(!isset($_SESSION["loggedinn"])){
 			echo '<p class="loginput">';echo $navn; echo '</p>';
 			echo '<p class="loginput">';echo $email; echo '</p>';
 			echo '<form action="hire.php"><input type="submit" value="Legg Ut Oppgaver"></form>';
+			echo '<form action="'; echo htmlspecialchars($_SERVER["PHP_SELF"]); echo '" method="post"><input type="submit" value="Log Ut" name="logout"></form>';
 			echo '<img id="avatarbilde" src="Bilder/empty_avatar.png" alt=avatar">';
 			echo "</div>";
-			
+			if(isset($_POST["logout"])){
+				session_destroy();
+			}
         }else{
 			echo '<div class="profiler">';
 			echo '<form action="';
@@ -56,9 +56,9 @@ if(!isset($_SESSION["loggedinn"])){
 			if(isset($_POST["_email"])){
 				$username = $_POST["_email"];
 				$password = $_POST["_password"];
-				$sql = "SELECT * FROM users WHERE Email = '$username' and Password = '$password'";
-                $results = $conn->query($sql);
-                if($results->num_rows = 1){
+				$sql = "SELECT * FROM users WHERE Email='$username' AND Password='$password'";
+				$results = $conn->query($sql);
+                if(mysqli_num_rows($results) == 1){
                     while($a = $results->fetch_assoc()){
                         $foo2 = $a["UserID"];
                         $foo0 = $a["Email"];
