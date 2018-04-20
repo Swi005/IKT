@@ -25,7 +25,7 @@ if(!isset($_SESSION["loggedinn"])){
 <?php
 		if($_SESSION["loggedinn"]){
 			$tempVar = $_SESSION["userID"];
-			$sql = "SELECT FirstName, LastName, Email FROM  Users WHERE UserID = '$tempVar'";
+			$sql = "SELECT * FROM  Users WHERE UserID = '$tempVar'";
 			$results = $conn->query($sql);
 			while($a = $results->fetch_assoc()){
 				$navn = $a["FirstName"]." ".$a["LastName"];
