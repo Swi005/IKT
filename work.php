@@ -125,7 +125,7 @@ if(!isset($_SESSION["loggedinn"])){
                 
                 while ($e = $results->fetch_assoc()) {
                     $input0 = $e["FirstName"]." ".$e["LastName"];
-                    $input1 = $e["Navn"];
+                    $input1 = $e["Name"];
                     $input2 = $e["DateCreated"];
                     $input3 = $e["Email"];
 					$input4 = $e["Phone"];
