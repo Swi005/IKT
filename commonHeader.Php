@@ -29,22 +29,23 @@ if($_SESSION["loggedinn"]){
     echo htmlspecialchars($_SERVER["PHP_SELF"]);
     echo '" method="post">';
     echo 'Skriv inn dine brukerdetaljer';
-    echo '<input class="loginput" type="text" name="_email" placeholder="Brukernavn" required>';
-    echo '<input class="loginput" type="password" name="_password" placeholder="Passord" required>';
+    echo '<input class="loginput" type="email" name="email1" placeholder="Brukernavn" required>';
+    echo '<input class="loginput" type="password" name="password1" placeholder="Passord" required>';
     echo '<input class="loginput" type="submit">';
     echo '</form>';
     echo '</div>';
-    if(isset($_POST["_email"])){
-        $username = $_POST["_email"];
-        $password = $_POST["_password"];
-        $sql = "SELECT * FROM users WHERE Email='$username' AND Password='$password'";
+    if(isset($_POST["email1"])){
+        $username1 = $_POST["email1"];
+        $password1 = $_POST["password1"];
+        $password1 = hash("sha256", $password1);
+        $sql = "SELECT * FROM users WHERE Email='$username1' AND Password='$password1'";
         $results = $conn->query($sql);
         if(mysqli_num_rows($results) == 1){
             while($a = $results->fetch_assoc()){
                 $foo2 = $a["UserID"];
                 $foo0 = $a["Email"];
                 $foo1 = $a["Password"];
-                if($username == $foo0 && $password == $foo1){
+                if($username1 == $foo0 && $password1 == $foo1){
                     $_SESSION["loggedinn"] = true;
                     $_SESSION["userID"] = $foo2;
                     header("Cache-Control: no-cache, must-revalidate");
@@ -54,6 +55,7 @@ if($_SESSION["loggedinn"]){
         }else{
             //error wrong password
             echo "wrong password";
+            echo $password1;
         }
     }
 }

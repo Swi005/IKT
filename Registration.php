@@ -10,18 +10,16 @@ if(!isset($_SESSION["loggedinn"])){
     $conn = new mysqli($DBhostname, $DBusername, $DBpassword, $DBname);
 ?>
 <!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
+    
 	<link rel="stylesheet" type="text/css" href="indexstyle.css">
 	<link rel="stylesheet" type="text/css" href="registerstyle.css">
-    <meta charset="utf-8" />
-    <title></title>
 </head>
 <body>
 <?php
     include 'commonHeader.php';
-?>
+?>  
 
 <div class="Content">
 <fieldset>
@@ -52,14 +50,14 @@ if(!isset($_SESSION["loggedinn"])){
         $zip = $_POST["_zip"];
         $city = $_POST["_city"];
         $address = $_POST["_address"];
-
+        $password = hash("sha256", $password);
         $sql = "SELECT * FROM users WHERE Email = '$email'";
-            if($conn->query($sql) != true){
+            if($conn->query($sql) != false){
                 $sql = "INSERT INTO `users` (Email, Password, FirstName, LastName, Zip_Code, Address, City) VALUES ('$email', '$password','$firstName', '$lastName', '$zip', '$address', '$city')";
                 if($conn->query($sql)){
                 $_SESSION["loggedinn"] = true;
                 $sql = "SELECT UserID FROM Users WHERE Email = $email";
-                $results= $sql->query($sql);
+                $results = $sql->query($sql);
                     while ($i = $results->fetch_assoc()) {
                         $_SESSION["userID"] = $a["userID"];
                         break;
@@ -75,8 +73,5 @@ if(!isset($_SESSION["loggedinn"])){
             }
         }
     ?>
-
-
-
-</body>
+</body> 
 </html>
