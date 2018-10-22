@@ -4,6 +4,10 @@
 		<?php
         
 if($_SESSION["loggedinn"]){
+ /* Checks if the user is logged inn. Future work should be focused on removing
+ the need for a server query. This block runs if the user is logged inn. 
+ If true it should display the users profile, if false it should display an option to loginn.
+ */
     $tempVar = $_SESSION["userID"];
     $sql = "SELECT * FROM users WHERE UserID = '$tempVar'";
     $results = $conn->query($sql);
@@ -48,7 +52,7 @@ if($_SESSION["loggedinn"]){
                 if($username1 == $foo0 && $password1 == $foo1){
                     $_SESSION["loggedinn"] = true;
                     $_SESSION["userID"] = $foo2;
-                    header("Cache-Control: no-cache, must-revalidate");
+                    header("Cache-Control: no-cache, must-revalidate"); //To force the browser to update. 
                 break;
                 }
             }
